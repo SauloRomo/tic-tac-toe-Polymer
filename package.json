@@ -4,9 +4,6 @@
     "description": "A tic-tac-toe game with polymer v1",
     "author": "Leonel Romo",
     "license": "UNLICENSED",
-    "scripts": {
-      "lint": "eslint . --ext js,html --ignore-path ~/.gitignore",
-    },
     "devDependencies": {
       "autoprefixer": "^6.5.3",
       "babel-eslint": "^7.1.1",
