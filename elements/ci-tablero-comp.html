@@ -1,0 +1,138 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/elements/shared-styles.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<dom-module id="ci-tablero-comp">
+  <template>
+    <h1>TIC-TAC-TOE</h1>
+    <div id="juego">
+      <div class="cuadro" on-click="__validarTurno" id="uno"></div>
+      <div class="cuadro" on-click="__validarTurno" id="dos"></div>
+      <div class="cuadro" on-click="__validarTurno" id="tres"></div>
+      <div class="cuadro" on-click="__validarTurno" id="cuatro"></div>
+      <div class="cuadro" on-click="__validarTurno" id="cinco"></div>
+      <div class="cuadro" on-click="__validarTurno" id="seis"></div>
+      <div class="cuadro" on-click="__validarTurno" id="siete"></div>
+      <div class="cuadro" on-click="__validarTurno" id="ocho"></div>
+      <div class="cuadro" on-click="__validarTurno" id="nueve"></div>
+    </div>
+    <span id="mensaje"></span>
+    <paper-input id="username1" label="[[localize('passwordLabel')]]" type="text" value="{{J1.nombre}}">
+    </paper-input>
+    <paper-input id="username2" label="[[localize('passwordLabel')]]" type="text" value="{{J2.nombre}}">
+    </paper-input>
+
+
+    <paper-button type="button" name="button" class="boton" on-click="__comenzar">INICIAR</paper-button>
+    <button type="button" name="button" class="boton" onclick="reiniciar()">Reiniciar</button>
+  </template>
+  <script>
+
+    Polymer({
+      is: "ci-tablero-comp",
+
+      properties: {
+        tablero: {
+          type: Object,
+          value: {
+            uno: "",
+            dos: "",
+            tres: "",
+            cuatro: "",
+            cinco: "",
+            seis: "",
+            siete: "",
+            ocho: "",
+            nueve: ""
+          },
+          observer: '__checkWinner'
+        },
+        J1: {
+          type: Object,
+          value: {
+            nombre: '',
+            turno: 0,
+            tipo: 'X'
+          }
+        },
+        J2: {
+          type: Object,
+          value: {
+            nombre: '',
+            turno: 0,
+            tipo: 'O'
+          }
+        },
+        step: {
+          type: Number,
+          value: 0
+        }
+      },
+      __comenzar() {
+        if (!this.J1.nombre) {
+          alert("Escriba el nombre del jugador 1:");
+          return false
+        }
+        if (!this.J2.nombre) {
+          alert("Escriba el nombre del jugador 2:");
+          return false
+        }
+        return true
+      },
+      __validarTurno(e) {
+        let x = this.__comenzar();
+          if (x === true) {
+          if (e.target.className.includes('cuadro')) {
+            if (this.step % 2 == 0) {
+              e.target.innerHTML = 'X';
+              this.tablero[e.target.id] = 'X';
+            }
+            else {
+              event.target.innerHTML = 'O';
+              this.tablero[e.target.id] = 'O';
+            }
+            this.step++;
+          }
+        }
+      },
+      __checkWinner() {
+        if (this.tablero.uno  && this.tablero.dos && this.tablero.tres) {
+
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[3].innerHTML === turn && seccion[4].innerHTML === turn && seccion[5].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[6].innerHTML === turn && seccion[7].innerHTML === turn && seccion[8].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[0].innerHTML === turn && seccion[1].innerHTML === turn && seccion[2].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        //Verticales
+        if (seccion[0].innerHTML === turn && seccion[3].innerHTML === turn && seccion[6].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[1].innerHTML === turn && seccion[4].innerHTML === turn && seccion[7].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[2].innerHTML === turn && seccion[5].innerHTML === turn && seccion[8].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        // Diagonales
+        if (seccion[0].innerHTML === turn && seccion[4].innerHTML === turn && seccion[8].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        if (seccion[2].innerHTML === turn && seccion[4].innerHTML === turn && seccion[6].innerHTML === turn) {
+          alert("jugador: " + playerName + " Gano!")
+        }
+        else {
+          if (checkDraw.length === 9) {
+            alert("Empate")
+          }
+        }
+      }
+
+    });
+
+  </script>
+</dom-module>
